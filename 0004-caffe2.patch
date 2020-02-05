@@ -1,0 +1,33 @@
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx.cc pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx.cc
+--- pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx.cc	2020-02-04 20:58:21.192000000 +0800
++++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx.cc	2020-02-05 11:46:13.846000000 +0800
+@@ -33,7 +33,7 @@
+     float* y) {
+   // if x does not start at the 16 byte boundary, we will process the first few.
+   // before we get to a real one.
+-  while ((reinterpret_cast<unsigned long>(x) % 16) && N) {
++  while ((reinterpret_cast<unsigned long long>(x) % 16) && N) {
+     *(y++) += _cvtsh_ss((*(x++)).x) * a;
+     --N;
+   }
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx2.cc pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx2.cc
+--- pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx2.cc	2020-02-04 20:58:21.193000000 +0800
++++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx2.cc	2020-02-05 11:46:13.862000000 +0800
+@@ -32,7 +32,7 @@
+     float* y) {
+   // if x does not start at the 16 byte boundary, we will process the first few.
+   // before we get to a real one.
+-  while ((reinterpret_cast<unsigned long>(x) % 16) && N) {
++  while ((reinterpret_cast<unsigned long long>(x) % 16) && N) {
+     *(y++) += _cvtsh_ss((*(x++)).x) * a;
+     --N;
+   }
+@@ -67,7 +67,7 @@
+     float* y) {
+   // if x does not start at the 16 byte boundary, we will process the first few.
+   // before we get to a real one.
+-  while ((reinterpret_cast<unsigned long>(x) % 16) && N) {
++  while ((reinterpret_cast<unsigned long long>(x) % 16) && N) {
+     *(y++) += static_cast<float>(*(x++)) * a;
+     --N;
+   }
