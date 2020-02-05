@@ -1,0 +1,24 @@
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/torch/csrc/jit/fuser/cpu/temp_file.h pytorch-1.4.0/torch/csrc/jit/fuser/cpu/temp_file.h
+--- pytorch-1.4.0.orig/torch/csrc/jit/fuser/cpu/temp_file.h	2020-02-04 20:58:30.060000000 +0800
++++ pytorch-1.4.0/torch/csrc/jit/fuser/cpu/temp_file.h	2020-02-06 00:09:38.428000000 +0800
+@@ -26,7 +26,7 @@
+ namespace fuser {
+ namespace cpu {
+ 
+-#ifdef _MSC_VER
++#ifdef _WIN32
+ int mkstemps(char* tmpl, int suffix_len) {
+   int len;
+   char* name;
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/torch/csrc/jit/script/strtod.cpp pytorch-1.4.0/torch/csrc/jit/script/strtod.cpp
+--- pytorch-1.4.0.orig/torch/csrc/jit/script/strtod.cpp	2020-02-04 20:58:25.518000000 +0800
++++ pytorch-1.4.0/torch/csrc/jit/script/strtod.cpp	2020-02-06 00:09:38.455000000 +0800
+@@ -78,7 +78,7 @@
+ namespace jit {
+ namespace script {
+ 
+-#ifdef _MSC_VER
++#ifdef _WIN32
+ C10_EXPORT double strtod_c(const char *nptr, char **endptr)
+ {
+     static _locale_t loc = _create_locale(LC_ALL, "C");

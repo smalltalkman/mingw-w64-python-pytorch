@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pytorch-1.4.0/c10/core/CPUAllocator.cpp
 --- pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp	2020-02-04 20:58:18.180000000 +0800
-+++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-05 11:46:13.535000000 +0800
++++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-06 00:09:37.929000000 +0800
 @@ -49,7 +49,7 @@
    void* data;
  #ifdef __ANDROID__
@@ -21,7 +21,7 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pyt
    free(data);
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/macros/Export.h pytorch-1.4.0/c10/macros/Export.h
 --- pytorch-1.4.0.orig/c10/macros/Export.h	2020-02-04 20:58:28.412000000 +0800
-+++ pytorch-1.4.0/c10/macros/Export.h	2020-02-05 11:46:13.566000000 +0800
++++ pytorch-1.4.0/c10/macros/Export.h	2020-02-06 00:09:37.943000000 +0800
 @@ -47,8 +47,8 @@
  #ifdef _WIN32
  #define C10_HIDDEN
@@ -33,3 +33,15 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/macros/Export.h pytorch-1
  #else
  #define C10_EXPORT
  #define C10_IMPORT
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h pytorch-1.4.0/c10/util/logging_is_not_google_glog.h
+--- pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h	2020-02-04 20:58:28.468000000 +0800
++++ pytorch-1.4.0/c10/util/logging_is_not_google_glog.h	2020-02-06 00:09:37.956000000 +0800
+@@ -16,7 +16,7 @@
+ 
+ // Log severity level constants.
+ const int FATAL = 3;
+-#if !defined(_MSC_VER) || !defined(ERROR)
++#if !defined(_WIN32) || !defined(ERROR)
+ // Windows defines the ERROR macro already, and as a result we will
+ // simply use that one. The downside is that one will now mix LOG(INFO)
+ // and LOG(ERROR) because ERROR is defined to be zero. Anyway, the

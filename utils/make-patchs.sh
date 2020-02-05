@@ -10,9 +10,11 @@ function make_patch_for_file() {
   local target_dir=$4
   local index=$5
   local file=$6
+  local target_file=$index-${file////-}.patch
   
+  echo Generating $target_file ...
   cd $base_dir
-  diff -urN -x '*.orig' -x'*.rej' $orig_dir/$file $work_dir/$file > $target_dir/$index-${file////-}.patch
+  diff -urN -x '*.orig' -x'*.rej' $orig_dir/$file $work_dir/$file > $target_dir/$target_file
 }
 
 function make_patch_for_file_0() {
@@ -23,3 +25,7 @@ make_patch_for_file_0 0001 tools
 make_patch_for_file_0 0002 c10
 make_patch_for_file_0 0003 third_party/sleef
 make_patch_for_file_0 0004 caffe2
+make_patch_for_file_0 0005 torch
+
+cd $BASE_PATH/..
+updpkgsums

@@ -21,12 +21,14 @@ source=("${_realname}-${pkgver}::git+https://github.com/pytorch/pytorch.git#tag=
         "0001-tools.patch"
         "0002-c10.patch"
         "0003-third_party-sleef.patch"
-        "0004-caffe2.patch")
+        "0004-caffe2.patch"
+        "0005-torch.patch")
 sha256sums=('SKIP'
-            '01532ae4e86f36530f8058076d7b0666ab2f1bfc2c59f81da1ec82d38e815b74'
-            'd90b4a55fe5a61a69a6aec78a2931ce65603b6b16e855801cd0136157492c161'
-            '7f0a626f11846585244534d2e0ae5f550e78d8acba7300efd73f4fa5b6db20af'
-            '480446509485b7e7c3fb6f4678ac1889eda7ba6b18c24d4a7c07fb19770c4def')
+            'b22fae9cd3596910d774c660386787122f9c7be16f1e103cc0c0e2544ce554cf'
+            'da79aa927e841d9e5c49b669cbe2d3529bb8cda383cfe77ec86662b0d8468cf0'
+            '202d13def9203cc2b2bd3aee456d901fdb1f8f2c4f90f394bd62c566ec54725e'
+            '8b59ce8a639f4d77ac97b56abb303ec45a84e52acf232fd321991eae83541e00'
+            'a8b41468e5f803be6b3cc29bb2056205526bb31ddb120ad3703dd271d408a115')
 
 # Helper macros to help make tasks easier #
 apply_patch_with_msg() {
@@ -53,7 +55,8 @@ prepare() {
     0001-tools.patch \
     0002-c10.patch \
     0003-third_party-sleef.patch \
-    0004-caffe2.patch
+    0004-caffe2.patch \
+    0005-torch.patch
 
   cd ..
 
@@ -67,6 +70,8 @@ prepare() {
   export CMAKE_GENERATOR="MSYS Makefiles"
   export MAX_JOBS=1
   # export CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0"
+
+  export USE_STATIC_DISPATCH=ON
 
   export USE_QNNPACK=OFF
   export USE_PYTORCH_QNNPACK=OFF

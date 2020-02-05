@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/tools/setup_helpers/cmake.py pytorch-1.4.0/tools/setup_helpers/cmake.py
 --- pytorch-1.4.0.orig/tools/setup_helpers/cmake.py	2020-02-04 20:58:29.818000000 +0800
-+++ pytorch-1.4.0/tools/setup_helpers/cmake.py	2020-02-05 11:46:13.398000000 +0800
++++ pytorch-1.4.0/tools/setup_helpers/cmake.py	2020-02-06 00:09:37.791000000 +0800
 @@ -171,12 +171,6 @@
              args.append('-GNinja')
          elif IS_WINDOWS:

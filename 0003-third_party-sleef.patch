@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/third_party/sleef/src/libm/CMakeLists.txt pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt
 --- pytorch-1.4.0.orig/third_party/sleef/src/libm/CMakeLists.txt	2020-02-04 22:12:46.108000000 +0800
-+++ pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt	2020-02-05 11:46:13.732000000 +0800
++++ pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt	2020-02-06 00:09:38.103000000 +0800
 @@ -23,8 +23,7 @@
  endforeach()
  
