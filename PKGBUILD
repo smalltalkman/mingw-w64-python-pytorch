@@ -27,7 +27,7 @@ source=("${_realname}-${pkgver}::git+https://github.com/pytorch/pytorch.git#tag=
 sha256sums=('SKIP'
             'f3ab87bae12e3d6d664f873dc13c8272ba228377ffeefd8a759ba1d2c04216a1'
             '03fd6b879ccbb4d7afdd445d735dbf6cc9f70b5555f3a3e5771067d5f8bbaa45'
-            'd880065d8c6d2c03f64067eb97496e573fcc969069fd520c9b08517a500d0f01'
+            '23a4b067e259ca6bac506390456e822027b42a90c71b6c373c316e4ceeaa9d42'
             '7490eed77973ad4608855727bfa51e1604084fbcfbfc2f65e1581ba4aff8aac6'
             'a32145ac91d9b8b2823264ea9bc275f426fc478b44348bb1c38feee7cb5d2f28'
             'b43012ac644d1bfa5c2eb9bf46f589c5302e69c3465649033f8560afe1fbba13')
