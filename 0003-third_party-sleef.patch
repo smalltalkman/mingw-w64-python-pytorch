@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/third_party/sleef/src/libm/CMakeLists.txt pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt
 --- pytorch-1.4.0.orig/third_party/sleef/src/libm/CMakeLists.txt	2020-02-04 22:12:46.108000000 +0800
-+++ pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt	2020-02-06 00:09:38.103000000 +0800
++++ pytorch-1.4.0/third_party/sleef/src/libm/CMakeLists.txt	2020-02-06 14:16:53.974000000 +0800
 @@ -23,8 +23,7 @@
  endforeach()
  
@@ -11,3 +11,18 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/third_party/sleef/src/libm/CM
  else()
    list(APPEND SLEEF_HEADER_COMMANDS COMMAND cat ${SLEEF_ORG_FOOTER} >> ${SLEEF_INCLUDE_HEADER})
  endif()
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/third_party/sleef/src/libm/sleeflibm_header.h.org pytorch-1.4.0/third_party/sleef/src/libm/sleeflibm_header.h.org
+--- pytorch-1.4.0.orig/third_party/sleef/src/libm/sleeflibm_header.h.org	2020-02-04 22:12:46.161000000 +0800
++++ pytorch-1.4.0/third_party/sleef/src/libm/sleeflibm_header.h.org	2020-02-06 14:16:53.986000000 +0800
+@@ -27,9 +27,9 @@
+ 
+ #if (defined(__MINGW32__) || defined(__MINGW64__) || defined(__CYGWIN__) || defined(_MSC_VER)) && !defined(SLEEF_STATIC_LIBS)
+ #ifdef IMPORT_IS_EXPORT
+-#define IMPORT __declspec(dllexport)
++#define IMPORT
+ #else // #ifdef IMPORT_IS_EXPORT
+-#define IMPORT __declspec(dllimport)
++#define
+ #if (defined(_MSC_VER))
+ #pragma comment(lib,"sleef.lib")
+ #endif // #if (defined(_MSC_VER))

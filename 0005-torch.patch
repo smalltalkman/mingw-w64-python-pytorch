@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/torch/csrc/jit/fuser/cpu/temp_file.h pytorch-1.4.0/torch/csrc/jit/fuser/cpu/temp_file.h
 --- pytorch-1.4.0.orig/torch/csrc/jit/fuser/cpu/temp_file.h	2020-02-04 20:58:30.060000000 +0800
-+++ pytorch-1.4.0/torch/csrc/jit/fuser/cpu/temp_file.h	2020-02-06 00:09:38.428000000 +0800
++++ pytorch-1.4.0/torch/csrc/jit/fuser/cpu/temp_file.h	2020-02-06 14:16:54.160000000 +0800
 @@ -26,7 +26,7 @@
  namespace fuser {
  namespace cpu {
@@ -12,7 +12,7 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/torch/csrc/jit/fuser/cpu/temp
    char* name;
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/torch/csrc/jit/script/strtod.cpp pytorch-1.4.0/torch/csrc/jit/script/strtod.cpp
 --- pytorch-1.4.0.orig/torch/csrc/jit/script/strtod.cpp	2020-02-04 20:58:25.518000000 +0800
-+++ pytorch-1.4.0/torch/csrc/jit/script/strtod.cpp	2020-02-06 00:09:38.455000000 +0800
++++ pytorch-1.4.0/torch/csrc/jit/script/strtod.cpp	2020-02-06 14:16:54.172000000 +0800
 @@ -78,7 +78,7 @@
  namespace jit {
  namespace script {

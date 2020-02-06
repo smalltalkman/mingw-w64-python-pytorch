@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pytorch-1.4.0/c10/core/CPUAllocator.cpp
 --- pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp	2020-02-04 20:58:18.180000000 +0800
-+++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-06 00:09:37.929000000 +0800
++++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-06 14:16:53.863000000 +0800
 @@ -49,7 +49,7 @@
    void* data;
  #ifdef __ANDROID__
@@ -20,22 +20,38 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pyt
  #else
    free(data);
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/macros/Export.h pytorch-1.4.0/c10/macros/Export.h
---- pytorch-1.4.0.orig/c10/macros/Export.h	2020-02-04 20:58:28.412000000 +0800
-+++ pytorch-1.4.0/c10/macros/Export.h	2020-02-06 00:09:37.943000000 +0800
-@@ -47,8 +47,8 @@
- #ifdef _WIN32
+--- pytorch-1.4.0.orig/c10/macros/Export.h	2020-02-06 09:56:23.099000000 +0800
++++ pytorch-1.4.0/c10/macros/Export.h	2020-02-06 14:16:53.897000000 +0800
+@@ -44,7 +44,7 @@
+ #include "c10/macros/cmake_macros.h"
+ #endif // C10_USING_CUSTOM_GENERATED_MACROS
+ 
+-#ifdef _WIN32
++#ifdef _MSC_VER
  #define C10_HIDDEN
  #if defined(C10_BUILD_SHARED_LIBS)
--#define C10_EXPORT __declspec(dllexport)
--#define C10_IMPORT __declspec(dllimport)
-+#define C10_EXPORT
-+#define C10_IMPORT
- #else
+ #define C10_EXPORT __declspec(dllexport)
+@@ -53,7 +53,7 @@
  #define C10_EXPORT
  #define C10_IMPORT
+ #endif
+-#else // _WIN32
++#else // _MSC_VER
+ #if defined(__GNUC__)
+ #define C10_EXPORT __attribute__((__visibility__("default")))
+ #define C10_HIDDEN __attribute__((__visibility__("hidden")))
+@@ -62,7 +62,7 @@
+ #define C10_HIDDEN
+ #endif // defined(__GNUC__)
+ #define C10_IMPORT C10_EXPORT
+-#endif // _WIN32
++#endif // _MSC_VER
+ 
+ #ifdef NO_EXPORT
+ #undef C10_EXPORT
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h pytorch-1.4.0/c10/util/logging_is_not_google_glog.h
 --- pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h	2020-02-04 20:58:28.468000000 +0800
-+++ pytorch-1.4.0/c10/util/logging_is_not_google_glog.h	2020-02-06 00:09:37.956000000 +0800
++++ pytorch-1.4.0/c10/util/logging_is_not_google_glog.h	2020-02-06 14:16:53.887000000 +0800
 @@ -16,7 +16,7 @@
  
  // Log severity level constants.

@@ -26,6 +26,7 @@ make_patch_for_file_0 0002 c10
 make_patch_for_file_0 0003 third_party/sleef
 make_patch_for_file_0 0004 caffe2
 make_patch_for_file_0 0005 torch
+make_patch_for_file_0 0006 aten
 
 cd $BASE_PATH/..
 updpkgsums

@@ -22,13 +22,15 @@ source=("${_realname}-${pkgver}::git+https://github.com/pytorch/pytorch.git#tag=
         "0002-c10.patch"
         "0003-third_party-sleef.patch"
         "0004-caffe2.patch"
-        "0005-torch.patch")
+        "0005-torch.patch"
+        "0006-aten.patch")
 sha256sums=('SKIP'
-            'b22fae9cd3596910d774c660386787122f9c7be16f1e103cc0c0e2544ce554cf'
-            'da79aa927e841d9e5c49b669cbe2d3529bb8cda383cfe77ec86662b0d8468cf0'
-            '202d13def9203cc2b2bd3aee456d901fdb1f8f2c4f90f394bd62c566ec54725e'
-            '8b59ce8a639f4d77ac97b56abb303ec45a84e52acf232fd321991eae83541e00'
-            'a8b41468e5f803be6b3cc29bb2056205526bb31ddb120ad3703dd271d408a115')
+            'f3ab87bae12e3d6d664f873dc13c8272ba228377ffeefd8a759ba1d2c04216a1'
+            '03fd6b879ccbb4d7afdd445d735dbf6cc9f70b5555f3a3e5771067d5f8bbaa45'
+            'd880065d8c6d2c03f64067eb97496e573fcc969069fd520c9b08517a500d0f01'
+            '7490eed77973ad4608855727bfa51e1604084fbcfbfc2f65e1581ba4aff8aac6'
+            'a32145ac91d9b8b2823264ea9bc275f426fc478b44348bb1c38feee7cb5d2f28'
+            'b43012ac644d1bfa5c2eb9bf46f589c5302e69c3465649033f8560afe1fbba13')
 
 # Helper macros to help make tasks easier #
 apply_patch_with_msg() {
@@ -56,7 +58,8 @@ prepare() {
     0002-c10.patch \
     0003-third_party-sleef.patch \
     0004-caffe2.patch \
-    0005-torch.patch
+    0005-torch.patch \
+    0006-aten.patch
 
   cd ..
 

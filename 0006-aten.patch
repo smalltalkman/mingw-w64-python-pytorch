@@ -1,0 +1,35 @@
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/aten/src/TH/THGeneral.h.in pytorch-1.4.0/aten/src/TH/THGeneral.h.in
+--- pytorch-1.4.0.orig/aten/src/TH/THGeneral.h.in	2020-02-04 20:58:28.047000000 +0800
++++ pytorch-1.4.0/aten/src/TH/THGeneral.h.in	2020-02-06 14:16:54.349000000 +0800
+@@ -31,7 +31,7 @@
+ // Note(jiayq): copied from ATen/core/Macros.h. Because internal build of TH
+ // and ATen are not unified yet, we need to duplicate code for now. Long term
+ // we should merge macros.
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ #if !defined(AT_CORE_STATIC_WINDOWS)
+ // TODO: unfiy the controlling macros.
+ #if defined(CAFFE2_BUILD_MAIN_LIBS) || defined(ATen_cpu_EXPORTS) || defined(caffe2_EXPORTS)
+@@ -42,11 +42,11 @@
+ #else // !defined(AT_CORE_STATIC_WINDOWS)
+ #define TH_CPP_API
+ #endif // !defined(AT_CORE_STATIC_WINDOWS)
+-#else  // _WIN32
++#else  // _MSC_VER
+ #if defined(__GNUC__)
+ #define TH_CPP_API __attribute__((__visibility__("default")))
+ #endif // defined(__GNUC__)
+-#endif  // _WIN32
++#endif  // _MSC_VER
+ 
+ #ifdef NO_EXPORT
+ #undef TH_CPP_API
+@@ -55,7 +55,7 @@
+ 
+ #define TH_API TH_EXTERNC TH_CPP_API
+ 
+-#ifdef _WIN32
++#ifdef _MSC_VER
+ # define TH_NO_RETURN __declspec(noreturn)
+ # define TH_UNREACHABLE
+ #else
