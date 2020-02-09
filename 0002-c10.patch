@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pytorch-1.4.0/c10/core/CPUAllocator.cpp
 --- pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp	2020-02-04 20:58:18.180000000 +0800
-+++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-06 14:16:53.863000000 +0800
++++ pytorch-1.4.0/c10/core/CPUAllocator.cpp	2020-02-09 17:18:54.055000000 +0800
 @@ -49,7 +49,7 @@
    void* data;
  #ifdef __ANDROID__
@@ -21,37 +21,31 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/core/CPUAllocator.cpp pyt
    free(data);
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/macros/Export.h pytorch-1.4.0/c10/macros/Export.h
 --- pytorch-1.4.0.orig/c10/macros/Export.h	2020-02-06 09:56:23.099000000 +0800
-+++ pytorch-1.4.0/c10/macros/Export.h	2020-02-06 14:16:53.897000000 +0800
-@@ -44,7 +44,7 @@
- #include "c10/macros/cmake_macros.h"
- #endif // C10_USING_CUSTOM_GENERATED_MACROS
++++ pytorch-1.4.0/c10/macros/Export.h	2020-02-09 17:18:54.095000000 +0800
+@@ -85,7 +85,7 @@
+ // and export.
  
--#ifdef _WIN32
-+#ifdef _MSC_VER
- #define C10_HIDDEN
- #if defined(C10_BUILD_SHARED_LIBS)
- #define C10_EXPORT __declspec(dllexport)
-@@ -53,7 +53,7 @@
- #define C10_EXPORT
- #define C10_IMPORT
- #endif
--#else // _WIN32
-+#else // _MSC_VER
- #if defined(__GNUC__)
- #define C10_EXPORT __attribute__((__visibility__("default")))
- #define C10_HIDDEN __attribute__((__visibility__("hidden")))
-@@ -62,7 +62,7 @@
- #define C10_HIDDEN
- #endif // defined(__GNUC__)
- #define C10_IMPORT C10_EXPORT
--#endif // _WIN32
-+#endif // _MSC_VER
+ // This one is being used by libc10.so
+-#ifdef C10_BUILD_MAIN_LIB
++#if defined(C10_BUILD_MAIN_LIB) || defined(CAFFE2_BUILD_MAIN_LIB)
+ #define C10_API C10_EXPORT
+ #else
+ #define C10_API C10_IMPORT
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/Flags.h pytorch-1.4.0/c10/util/Flags.h
+--- pytorch-1.4.0.orig/c10/util/Flags.h	2020-02-04 20:58:18.390000000 +0800
++++ pytorch-1.4.0/c10/util/Flags.h	2020-02-09 17:18:54.104000000 +0800
+@@ -210,7 +210,7 @@
+   C10_DEFINE_typed_var(std::string, name, default_value, help_str)
  
- #ifdef NO_EXPORT
- #undef C10_EXPORT
+ // DECLARE_typed_var should be used in header files and in the global namespace.
+-#define C10_DECLARE_typed_var(type, name) C10_IMPORT extern type FLAGS_##name
++#define C10_DECLARE_typed_var(type, name) C10_API extern type FLAGS_##name
+ 
+ #define C10_DECLARE_int(name) C10_DECLARE_typed_var(int, name)
+ #define C10_DECLARE_int32(name) C10_DECLARE_int(name)
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h pytorch-1.4.0/c10/util/logging_is_not_google_glog.h
 --- pytorch-1.4.0.orig/c10/util/logging_is_not_google_glog.h	2020-02-04 20:58:28.468000000 +0800
-+++ pytorch-1.4.0/c10/util/logging_is_not_google_glog.h	2020-02-06 14:16:53.887000000 +0800
++++ pytorch-1.4.0/c10/util/logging_is_not_google_glog.h	2020-02-09 17:18:54.082000000 +0800
 @@ -16,7 +16,7 @@
  
  // Log severity level constants.
@@ -61,3 +55,51 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/logging_is_not_googl
  // Windows defines the ERROR macro already, and as a result we will
  // simply use that one. The downside is that one will now mix LOG(INFO)
  // and LOG(ERROR) because ERROR is defined to be zero. Anyway, the
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/Registry.h pytorch-1.4.0/c10/util/Registry.h
+--- pytorch-1.4.0.orig/c10/util/Registry.h	2020-02-04 20:58:28.455000000 +0800
++++ pytorch-1.4.0/c10/util/Registry.h	2020-02-09 17:18:54.116000000 +0800
+@@ -205,7 +205,7 @@
+ // definition caes.
+ #define C10_DECLARE_TYPED_REGISTRY(                                        \
+     RegistryName, SrcType, ObjectType, PtrType, ...)                       \
+-  C10_IMPORT ::c10::Registry<SrcType, PtrType<ObjectType>, ##__VA_ARGS__>* \
++  C10_API ::c10::Registry<SrcType, PtrType<ObjectType>, ##__VA_ARGS__>* \
+   RegistryName();                                                          \
+   typedef ::c10::Registerer<SrcType, PtrType<ObjectType>, ##__VA_ARGS__>   \
+       Registerer##RegistryName
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/typeid.h pytorch-1.4.0/c10/util/typeid.h
+--- pytorch-1.4.0.orig/c10/util/typeid.h	2020-02-07 14:10:14.342000000 +0800
++++ pytorch-1.4.0/c10/util/typeid.h	2020-02-09 17:18:54.132000000 +0800
+@@ -496,7 +496,7 @@
+ //   http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2017/p0537r0.html
+ //   https://gcc.gnu.org/bugzilla/show_bug.cgi?id=51930
+ // and as a result, we define these two macros slightly differently.
+-#if defined(_MSC_VER) || defined(__clang__)
++#if defined(_MSC_VER) || defined(__clang__) || (defined(__MINGW32__) && defined(C10_BUILD_MAIN_LIB))
+ #define EXPORT_IF_NOT_GCC C10_EXPORT
+ #else
+ #define EXPORT_IF_NOT_GCC
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/UniqueVoidPtr.cpp pytorch-1.4.0/c10/util/UniqueVoidPtr.cpp
+--- pytorch-1.4.0.orig/c10/util/UniqueVoidPtr.cpp	2020-02-04 20:58:18.440000000 +0800
++++ pytorch-1.4.0/c10/util/UniqueVoidPtr.cpp	2020-02-09 17:18:54.144000000 +0800
+@@ -3,7 +3,7 @@
+ namespace c10 {
+ namespace detail {
+ 
+-void deleteNothing(void*) {}
++C10_EXPORT void deleteNothing(void*) {}
+ 
+ } // namespace detail
+ } // namespace c10
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/c10/util/UniqueVoidPtr.h pytorch-1.4.0/c10/util/UniqueVoidPtr.h
+--- pytorch-1.4.0.orig/c10/util/UniqueVoidPtr.h	2020-02-04 20:58:18.442000000 +0800
++++ pytorch-1.4.0/c10/util/UniqueVoidPtr.h	2020-02-09 17:18:54.158000000 +0800
+@@ -10,7 +10,7 @@
+ namespace detail {
+ 
+ // Does not delete anything
+-CAFFE2_API void deleteNothing(void*);
++C10_API void deleteNothing(void*);
+ 
+ // A detail::UniqueVoidPtr is an owning smart pointer like unique_ptr, but
+ // with three major differences:

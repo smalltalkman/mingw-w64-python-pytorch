@@ -30,3 +30,5 @@ make_patch_for_file_0 0006 aten
 
 cd $BASE_PATH/..
 updpkgsums
+
+find $BASE_PATH/.. -maxdepth 1 -name "*.patch" | xargs cat > $BASE_PATH/all-in-one.patch

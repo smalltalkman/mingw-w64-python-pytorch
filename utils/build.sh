@@ -39,7 +39,7 @@ function rebuild() {
 
   updpkgsums
 
-  makepkg-mingw --noconfirm -sLf
+  makepkg-mingw --noconfirm -sLf $@
 
   local _pkg_files=$(find . -type f -name "mingw-w64-${machine}-*.pkg.tar.zst")
 
@@ -48,4 +48,4 @@ function rebuild() {
   done
 }
 
-rebuild
+rebuild $@

@@ -1,6 +1,6 @@
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/core/module.cc pytorch-1.4.0/caffe2/core/module.cc
 --- pytorch-1.4.0.orig/caffe2/core/module.cc	2020-02-04 20:58:18.833000000 +0800
-+++ pytorch-1.4.0/caffe2/core/module.cc	2020-02-06 14:16:54.046000000 +0800
++++ pytorch-1.4.0/caffe2/core/module.cc	2020-02-09 17:18:54.400000000 +0800
 @@ -1,7 +1,7 @@
  #include "caffe2/core/logging.h"
  #include "caffe2/core/module.h"
@@ -28,9 +28,39 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/core/module.cc pytorch
  
  }  // namespace caffe2
  
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/core/operator.h pytorch-1.4.0/caffe2/core/operator.h
+--- pytorch-1.4.0.orig/caffe2/core/operator.h	2020-02-04 20:58:28.575000000 +0800
++++ pytorch-1.4.0/caffe2/core/operator.h	2020-02-09 17:18:54.474000000 +0800
+@@ -1389,7 +1389,7 @@
+ #define REGISTER_CPU_OPERATOR_CREATOR(key, ...) \
+   C10_REGISTER_CREATOR(CPUOperatorRegistry, key, __VA_ARGS__)
+ #define REGISTER_CPU_OPERATOR(name, ...)                           \
+-  C10_IMPORT void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();  \
++  C10_API void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();  \
+   static void CAFFE2_UNUSED CAFFE_ANONYMOUS_VARIABLE_CPU##name() { \
+     CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();                \
+   }                                                                \
+@@ -1424,7 +1424,7 @@
+ #define REGISTER_CUDA_OPERATOR_CREATOR(key, ...) \
+   C10_REGISTER_CREATOR(CUDAOperatorRegistry, key, __VA_ARGS__)
+ #define REGISTER_CUDA_OPERATOR(name, ...)                           \
+-  C10_IMPORT void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();   \
++  C10_API void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();   \
+   static void CAFFE2_UNUSED CAFFE_ANONYMOUS_VARIABLE_CUDA##name() { \
+     CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();                 \
+   }                                                                 \
+@@ -1448,7 +1448,7 @@
+ #define REGISTER_HIP_OPERATOR_CREATOR(key, ...) \
+   C10_REGISTER_CREATOR(HIPOperatorRegistry, key, __VA_ARGS__)
+ #define REGISTER_HIP_OPERATOR(name, ...)                           \
+-  C10_IMPORT void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();  \
++  C10_API void CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();  \
+   static void CAFFE2_UNUSED CAFFE_ANONYMOUS_VARIABLE_HIP##name() { \
+     CAFFE2_PLEASE_ADD_OPERATOR_SCHEMA_FOR_##name();                \
+   }                                                                \
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/distributed/file_store_handler.cc pytorch-1.4.0/caffe2/distributed/file_store_handler.cc
 --- pytorch-1.4.0.orig/caffe2/distributed/file_store_handler.cc	2020-02-04 20:58:19.136000000 +0800
-+++ pytorch-1.4.0/caffe2/distributed/file_store_handler.cc	2020-02-06 14:16:54.060000000 +0800
++++ pytorch-1.4.0/caffe2/distributed/file_store_handler.cc	2020-02-09 17:18:54.416000000 +0800
 @@ -12,7 +12,7 @@
  #include <iostream>
  #include <thread>
@@ -65,7 +95,7 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/distributed/file_store
  #else
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx.cc pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx.cc
 --- pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx.cc	2020-02-04 20:58:21.192000000 +0800
-+++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx.cc	2020-02-06 14:16:54.067000000 +0800
++++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx.cc	2020-02-09 17:18:54.428000000 +0800
 @@ -33,7 +33,7 @@
      float* y) {
    // if x does not start at the 16 byte boundary, we will process the first few.
@@ -77,7 +107,7 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy
    }
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx2.cc pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx2.cc
 --- pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy_avx2.cc	2020-02-04 20:58:21.193000000 +0800
-+++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx2.cc	2020-02-06 14:16:54.075000000 +0800
++++ pytorch-1.4.0/caffe2/perfkernels/typed_axpy_avx2.cc	2020-02-09 17:18:54.440000000 +0800
 @@ -32,7 +32,7 @@
      float* y) {
    // if x does not start at the 16 byte boundary, we will process the first few.
@@ -96,9 +126,21 @@ diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/perfkernels/typed_axpy
      *(y++) += static_cast<float>(*(x++)) * a;
      --N;
    }
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/proto/CMakeLists.txt pytorch-1.4.0/caffe2/proto/CMakeLists.txt
+--- pytorch-1.4.0.orig/caffe2/proto/CMakeLists.txt	2020-02-09 16:53:36.047000000 +0800
++++ pytorch-1.4.0/caffe2/proto/CMakeLists.txt	2020-02-09 17:18:54.516000000 +0800
+@@ -4,7 +4,7 @@
+ 
+ add_library(Caffe2_PROTO OBJECT ${Caffe2_PROTO_HEADERS} ${Caffe2_PROTO_SRCS})
+ 
+-if (MSVC)
++if (MSVC OR MINGW)
+   if(BUILD_SHARED_LIBS)
+     set(Caffe2_API_DEFINE "-DCAFFE2_API=__declspec(dllexport)")
+   else()
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/caffe2/utils/threadpool/WorkersPool.h pytorch-1.4.0/caffe2/utils/threadpool/WorkersPool.h
 --- pytorch-1.4.0.orig/caffe2/utils/threadpool/WorkersPool.h	2020-02-04 20:58:29.150000000 +0800
-+++ pytorch-1.4.0/caffe2/utils/threadpool/WorkersPool.h	2020-02-06 14:16:54.081000000 +0800
++++ pytorch-1.4.0/caffe2/utils/threadpool/WorkersPool.h	2020-02-09 17:18:54.454000000 +0800
 @@ -7,7 +7,7 @@
  #include "caffe2/core/common.h"
  #include "caffe2/core/logging.h"

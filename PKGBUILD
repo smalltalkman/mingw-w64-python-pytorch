@@ -26,9 +26,9 @@ source=("${_realname}-${pkgver}::git+https://github.com/pytorch/pytorch.git#tag=
         "0006-aten.patch")
 sha256sums=('SKIP'
             'f3ab87bae12e3d6d664f873dc13c8272ba228377ffeefd8a759ba1d2c04216a1'
-            '03fd6b879ccbb4d7afdd445d735dbf6cc9f70b5555f3a3e5771067d5f8bbaa45'
+            '1cec246bcfcd01becdba4e4f925d98a8e8cf1f258095d29323466b45f538a8d9'
             '23a4b067e259ca6bac506390456e822027b42a90c71b6c373c316e4ceeaa9d42'
-            '7490eed77973ad4608855727bfa51e1604084fbcfbfc2f65e1581ba4aff8aac6'
+            'c58a17ae8e8a5c8ccca1a528b7b003ac9f2c4848a3ffea91dff4887b7825b707'
             'a32145ac91d9b8b2823264ea9bc275f426fc478b44348bb1c38feee7cb5d2f28'
             'b43012ac644d1bfa5c2eb9bf46f589c5302e69c3465649033f8560afe1fbba13')
 
