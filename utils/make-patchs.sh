@@ -28,6 +28,8 @@ make_patch_for_file_0 0004 caffe2
 make_patch_for_file_0 0005 torch
 make_patch_for_file_0 0006 aten
 
+make_patch_for_file_0 2001 CMakeLists.txt
+
 cd $BASE_PATH/..
 updpkgsums
 
