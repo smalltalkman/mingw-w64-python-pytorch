@@ -1,6 +1,31 @@
+diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/aten/src/ATen/core/boxing/kernel_functor_test.cpp pytorch-1.4.0/aten/src/ATen/core/boxing/kernel_functor_test.cpp
+--- pytorch-1.4.0.orig/aten/src/ATen/core/boxing/kernel_functor_test.cpp	2020-02-04 20:58:27.454000000 +0800
++++ pytorch-1.4.0/aten/src/ATen/core/boxing/kernel_functor_test.cpp	2020-02-11 14:04:43.683000000 +0800
+@@ -791,21 +791,6 @@
+   std::string prefix_;
+ };
+ 
+-void expectCallsConcatUnboxed(TensorTypeId type_id) {
+-  at::AutoNonVariableTypeMode non_var_type_mode(true);
+-
+-  // assert that schema and cpu kernel are present
+-  auto op = c10::Dispatcher::singleton().findSchema({"_test::my_op", ""});
+-  ASSERT_TRUE(op.has_value());
+-  std::string result = callOpUnboxed<std::string, const Tensor&, std::string, const std::string&, int64_t>(*op, dummyTensor(type_id), "1", "2", 3);
+-  EXPECT_EQ("prefix123", result);
+-}
+-
+-TEST(OperatorRegistrationTest_FunctorBasedKernel, givenKernel_whenRegistered_thenCanBeCalledUnboxed) {
+-  auto registrar = RegisterOperators().op("_test::my_op(Tensor dummy, str a, str b, int c) -> str", RegisterOperators::options().kernel<ConcatKernel>(TensorTypeId::CPUTensorId, "prefix"));
+-  expectCallsConcatUnboxed(TensorTypeId::CPUTensorId);
+-}
+-
+ struct KernelForSchemaInference final : OperatorKernel {
+   std::tuple<int64_t, Tensor> operator()(Tensor arg1, int64_t arg2, const c10::List<Tensor>& arg3) {
+     return {};
 diff -urN -x '*.orig' '-x*.rej' pytorch-1.4.0.orig/aten/src/TH/THGeneral.h.in pytorch-1.4.0/aten/src/TH/THGeneral.h.in
 --- pytorch-1.4.0.orig/aten/src/TH/THGeneral.h.in	2020-02-04 20:58:28.047000000 +0800
-+++ pytorch-1.4.0/aten/src/TH/THGeneral.h.in	2020-02-06 14:16:54.349000000 +0800
++++ pytorch-1.4.0/aten/src/TH/THGeneral.h.in	2020-02-11 14:04:43.669000000 +0800
 @@ -31,7 +31,7 @@
  // Note(jiayq): copied from ATen/core/Macros.h. Because internal build of TH
  // and ATen are not unified yet, we need to duplicate code for now. Long term

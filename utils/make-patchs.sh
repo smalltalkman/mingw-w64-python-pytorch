@@ -29,6 +29,7 @@ make_patch_for_file_0 0005 torch
 make_patch_for_file_0 0006 aten
 
 make_patch_for_file_0 2001 CMakeLists.txt
+make_patch_for_file_0 2002 setup.py
 
 cd $BASE_PATH/..
 updpkgsums

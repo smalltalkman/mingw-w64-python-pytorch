@@ -1,0 +1,19 @@
+--- pytorch-1.4.0.orig/setup.py	2020-02-04 20:58:29.314000000 +0800
++++ pytorch-1.4.0/setup.py	2020-02-11 14:04:43.967000000 +0800
+@@ -175,6 +175,7 @@
+ import subprocess
+ import shutil
+ import sys
++import sysconfig
+ import os
+ import json
+ import glob
+@@ -241,7 +242,7 @@
+ # full absolute path to the dir above
+ full_site_packages = distutils.sysconfig.get_python_lib()
+ # CMAKE: full path to python library
+-if IS_WINDOWS:
++if IS_WINDOWS and (sysconfig.get_platform() != 'mingw'):
+     cmake_python_library = "{}/libs/python{}.lib".format(
+         distutils.sysconfig.get_config_var("prefix"),
+         distutils.sysconfig.get_config_var("VERSION"))

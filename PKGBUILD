@@ -24,15 +24,17 @@ source=("${_realname}-${pkgver}::git+https://github.com/pytorch/pytorch.git#tag=
         "0004-caffe2.patch"
         "0005-torch.patch"
         "0006-aten.patch"
-        "2001-CMakeLists.txt.patch")
+        "2001-CMakeLists.txt.patch"
+        "2002-setup.py.patch")
 sha256sums=('SKIP'
             'f3ab87bae12e3d6d664f873dc13c8272ba228377ffeefd8a759ba1d2c04216a1'
             'f323d4694a62e451b0c51698b450d14a24fdad074e75a9f3b1ff203f9e1c8f7b'
             '23a4b067e259ca6bac506390456e822027b42a90c71b6c373c316e4ceeaa9d42'
             'c58a17ae8e8a5c8ccca1a528b7b003ac9f2c4848a3ffea91dff4887b7825b707'
             'a32145ac91d9b8b2823264ea9bc275f426fc478b44348bb1c38feee7cb5d2f28'
-            'b43012ac644d1bfa5c2eb9bf46f589c5302e69c3465649033f8560afe1fbba13'
-            'bda79b576535713de4fb592e4475e5e5b1b50a68241e0319f3c48b9325b16e62')
+            '14285478ccc891a10979426a21a1e1a8855a3d9e923b98a1d6694e8db34bbdec'
+            'bda79b576535713de4fb592e4475e5e5b1b50a68241e0319f3c48b9325b16e62'
+            'f7b694def9fffd66692e7431077efd1ac4b500380140208a71d4554da8505f85')
 
 # Helper macros to help make tasks easier #
 apply_patch_with_msg() {
@@ -62,7 +64,8 @@ prepare() {
     0004-caffe2.patch \
     0005-torch.patch \
     0006-aten.patch \
-    2001-CMakeLists.txt.patch
+    2001-CMakeLists.txt.patch \
+    2002-setup.py.patch
 
   cd ..
 
@@ -74,7 +77,7 @@ prepare() {
   # export VERBOSE=1
 
   export CMAKE_GENERATOR="MSYS Makefiles"
-  export MAX_JOBS=1
+  # export MAX_JOBS=1
   # export CXXFLAGS="-D_GLIBCXX_USE_CXX11_ABI=0"
 
   export USE_STATIC_DISPATCH=ON
